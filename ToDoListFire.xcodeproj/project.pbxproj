@@ -17,6 +17,8 @@
 		87803DE829D3841600459664 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87803DE729D3841600459664 /* GoogleService-Info.plist */; };
 		87803DEB29D385E100459664 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 87803DEA29D385E100459664 /* FirebaseAuth */; };
 		87803DED29D385E100459664 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 87803DEC29D385E100459664 /* FirebaseDatabase */; };
+		87DCE8F829D813A70080C916 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DCE8F729D813A70080C916 /* User.swift */; };
+		87DCE8FA29D813B50080C916 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DCE8F929D813B50080C916 /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		87803DE329CECFCC00459664 /* TasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		87803DE529CF723900459664 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		87803DE729D3841600459664 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		87DCE8F729D813A70080C916 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		87DCE8F929D813B50080C916 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,12 +73,22 @@
 				874E95DC29BE124F00A222FB /* StartViewController.swift */,
 				87803DE529CF723900459664 /* NavigationController.swift */,
 				87803DE329CECFCC00459664 /* TasksTableViewController.swift */,
+				87DCE8FB29D813BD0080C916 /* Models */,
 				874E95E129BE125000A222FB /* Assets.xcassets */,
 				874E95E329BE125000A222FB /* LaunchScreen.storyboard */,
 				874E95E629BE125000A222FB /* Info.plist */,
 				87803DE729D3841600459664 /* GoogleService-Info.plist */,
 			);
 			path = ToDoListFire;
+			sourceTree = "<group>";
+		};
+		87DCE8FB29D813BD0080C916 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				87DCE8F729D813A70080C916 /* User.swift */,
+				87DCE8F929D813B50080C916 /* Task.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,8 +171,10 @@
 			files = (
 				874E95DD29BE124F00A222FB /* StartViewController.swift in Sources */,
 				874E95D929BE124F00A222FB /* AppDelegate.swift in Sources */,
+				87DCE8F829D813A70080C916 /* User.swift in Sources */,
 				87803DE629CF723900459664 /* NavigationController.swift in Sources */,
 				87803DE429CECFCC00459664 /* TasksTableViewController.swift in Sources */,
+				87DCE8FA29D813B50080C916 /* Task.swift in Sources */,
 				874E95DB29BE124F00A222FB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

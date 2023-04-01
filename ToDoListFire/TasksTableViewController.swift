@@ -49,7 +49,16 @@ class TasksTableViewController: UITableViewController {
     }
     
     @objc private func addTapped() {
-        
+        let alertController = UIAlertController(title: "New", message: "task", preferredStyle: .alert)
+        alertController.addTextField()
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+            guard let task = alertController.textFields?.first?.text, task != "" else { return }
+            //save task
+        }
+        let canctlAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alertController.addAction(saveAction)
+        alertController.addAction(canctlAction)
+        present(alertController, animated: true)
     }
     
     @objc private func signOutTapped() {
