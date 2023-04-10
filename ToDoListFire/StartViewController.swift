@@ -10,6 +10,8 @@ import Firebase
 
 class StartViewController: UIViewController {
     
+    private var reference: DatabaseReference!
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,6 +80,9 @@ class StartViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9969663024, green: 0.9919849038, blue: 0.5153911114, alpha: 1)
         warningLabel.alpha = 0
+        
+        reference = Database.database().reference()
+        
         setupSubViews()
         hidenKeyboardWhenTapped()
         addOserver()
@@ -167,24 +172,22 @@ class StartViewController: UIViewController {
     @objc private func registerButtonTaped() {
         guard
             let email = loginTextField.text,
-                let password = passwordTextField.text,
-                email != "",
-                password != ""
+            let password = passwordTextField.text,
+            email != "",
+            password != ""
         else {
             showWarningLabel(withText: "Info is incorrect")
             return
         }
         
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
-            if error == nil {
-                if user != nil {
-                    
-                } else {
-                    print("user is not created")
-                }
-            } else {
+            guard error == nil, user != nil else {
                 print(error?.localizedDescription ?? "")
+                return
             }
+            let userF = UserFire(user: user!.user)
+            let userRef = self.reference.child("users").child(userF.uid)
+            userRef.setValue(["email": userF.email])
         }
     }
     

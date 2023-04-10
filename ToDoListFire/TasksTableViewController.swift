@@ -10,22 +10,18 @@ import Firebase
 
 class TasksTableViewController: UITableViewController {
     
+    var user: UserFire!
+    var reference: DatabaseReference!
+    var tasks: [Task] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        view.backgroundColor = #colorLiteral(red: 0.9969663024, green: 0.9919849038, blue: 0.5153911114, alpha: 1)
-        title = "Tasks"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self,
-            action: #selector(addTapped)
-        )
+        setupNavigationBar()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: "Sign out",
-            style: .plain,
-            target: self,
-            action: #selector(signOutTapped))
+        guard let currentUser = Auth.auth().currentUser else { return }
+        user = UserFire(user: currentUser)
+        reference = Database.database().reference().child("users").child(user.uid).child("tasks")
     }
     
     // MARK: - Table view data source
@@ -49,12 +45,21 @@ class TasksTableViewController: UITableViewController {
     }
     
     @objc private func addTapped() {
-        let alertController = UIAlertController(title: "New", message: "task", preferredStyle: .alert)
+        let alertController = UIAlertController(
+            title: "New",
+            message: "task",
+            preferredStyle: .alert
+        )
+        
         alertController.addTextField()
-        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
-            guard let task = alertController.textFields?.first?.text, task != "" else { return }
-            //save task
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] _ in
+            guard let textFieldText = alertController.textFields?.first?.text, textFieldText != "" else { return }
+            let task = Task(title: textFieldText, userId: (self?.user.uid)!)
+            let taskReference = self?.reference.child(task.title.lowercased())
+            taskReference?.setValue(task.convertToDictionary())
         }
+        
         let canctlAction = UIAlertAction(title: "Cancel", style: .cancel)
         alertController.addAction(saveAction)
         alertController.addAction(canctlAction)
@@ -69,5 +74,22 @@ class TasksTableViewController: UITableViewController {
         }
         
         dismiss(animated: true)
+    }
+    
+    private func setupNavigationBar() {
+        view.backgroundColor = #colorLiteral(red: 0.9969663024, green: 0.9919849038, blue: 0.5153911114, alpha: 1)
+        
+        title = "Tasks"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addTapped)
+        )
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "Sign out",
+            style: .plain,
+            target: self,
+            action: #selector(signOutTapped))
     }
 }

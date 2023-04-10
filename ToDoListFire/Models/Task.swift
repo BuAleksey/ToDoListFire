@@ -14,7 +14,7 @@ struct Task {
     let reference: DatabaseReference?
     var comleted = false
     
-    init(title: String, userId: String, reference: DatabaseReference?) {
+    init(title: String, userId: String) {
         self.title = title
         self.userId = userId
         self.reference = nil
@@ -26,5 +26,9 @@ struct Task {
         userId = snapshotValue["userId"] as? String ?? ""
         reference = snapshot.ref
         comleted = snapshotValue["comleted"] as? Bool ?? false
+    }
+    
+    func convertToDictionary() -> [String: Any] {
+        ["title": title, "userId": userId, "comleted": comleted]
     }
 }
