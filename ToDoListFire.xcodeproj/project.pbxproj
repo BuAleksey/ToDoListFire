@@ -12,6 +12,8 @@
 		874E95DD29BE124F00A222FB /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874E95DC29BE124F00A222FB /* StartViewController.swift */; };
 		874E95E229BE125000A222FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 874E95E129BE125000A222FB /* Assets.xcassets */; };
 		874E95E529BE125000A222FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 874E95E329BE125000A222FB /* LaunchScreen.storyboard */; };
+		875B756A29F466B5004034BE /* StartViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875B756929F466B5004034BE /* StartViewPresenter.swift */; };
+		875B756D29F46C5D004034BE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875B756C29F46C5D004034BE /* DatabaseManager.swift */; };
 		87803DE429CECFCC00459664 /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87803DE329CECFCC00459664 /* TasksTableViewController.swift */; };
 		87803DE629CF723900459664 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87803DE529CF723900459664 /* NavigationController.swift */; };
 		87803DE829D3841600459664 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87803DE729D3841600459664 /* GoogleService-Info.plist */; };
@@ -29,6 +31,8 @@
 		874E95E129BE125000A222FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		874E95E429BE125000A222FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		874E95E629BE125000A222FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		875B756929F466B5004034BE /* StartViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewPresenter.swift; sourceTree = "<group>"; };
+		875B756C29F46C5D004034BE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		87803DE329CECFCC00459664 /* TasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		87803DE529CF723900459664 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		87803DE729D3841600459664 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -70,9 +74,10 @@
 			children = (
 				874E95D829BE124F00A222FB /* AppDelegate.swift */,
 				874E95DA29BE124F00A222FB /* SceneDelegate.swift */,
-				874E95DC29BE124F00A222FB /* StartViewController.swift */,
+				875B756829F46661004034BE /* StartView */,
 				87803DE529CF723900459664 /* NavigationController.swift */,
 				87803DE329CECFCC00459664 /* TasksTableViewController.swift */,
+				875B756B29F46C09004034BE /* DatabaseManager */,
 				87DCE8FB29D813BD0080C916 /* Models */,
 				874E95E129BE125000A222FB /* Assets.xcassets */,
 				874E95E329BE125000A222FB /* LaunchScreen.storyboard */,
@@ -80,6 +85,23 @@
 				87803DE729D3841600459664 /* GoogleService-Info.plist */,
 			);
 			path = ToDoListFire;
+			sourceTree = "<group>";
+		};
+		875B756829F46661004034BE /* StartView */ = {
+			isa = PBXGroup;
+			children = (
+				874E95DC29BE124F00A222FB /* StartViewController.swift */,
+				875B756929F466B5004034BE /* StartViewPresenter.swift */,
+			);
+			path = StartView;
+			sourceTree = "<group>";
+		};
+		875B756B29F46C09004034BE /* DatabaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				875B756C29F46C5D004034BE /* DatabaseManager.swift */,
+			);
+			path = DatabaseManager;
 			sourceTree = "<group>";
 		};
 		87DCE8FB29D813BD0080C916 /* Models */ = {
@@ -173,9 +195,11 @@
 				874E95D929BE124F00A222FB /* AppDelegate.swift in Sources */,
 				87DCE8F829D813A70080C916 /* User.swift in Sources */,
 				87803DE629CF723900459664 /* NavigationController.swift in Sources */,
+				875B756A29F466B5004034BE /* StartViewPresenter.swift in Sources */,
 				87803DE429CECFCC00459664 /* TasksTableViewController.swift in Sources */,
 				87DCE8FA29D813B50080C916 /* Task.swift in Sources */,
 				874E95DB29BE124F00A222FB /* SceneDelegate.swift in Sources */,
+				875B756D29F46C5D004034BE /* DatabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

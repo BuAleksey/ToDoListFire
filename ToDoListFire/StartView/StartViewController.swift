@@ -6,11 +6,14 @@
 //
 
 import UIKit
-import Firebase
+
+protocol StartViewControllerProtocol{
+    func showWarningLabel(_ text: String)
+    func showTaskTableViewController()
+}
 
 class StartViewController: UIViewController {
-    
-    private var reference: DatabaseReference!
+    private var presenter: StartViewPresenterProtocol!
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -80,20 +83,14 @@ class StartViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9969663024, green: 0.9919849038, blue: 0.5153911114, alpha: 1)
         warningLabel.alpha = 0
-        
-        reference = Database.database().reference()
+
+        presenter = StartViewPresenter(view: self)
         
         setupSubViews()
         hidenKeyboardWhenTapped()
         addOserver()
         
-        Auth.auth().addStateDidChangeListener { [weak self] auth, user in
-            if user != nil {
-                let viewController = NavigationController(rootViewController: TasksTableViewController())
-                viewController.modalPresentationStyle = .fullScreen
-                self?.present(viewController, animated: true)
-            }
-        }
+        presenter.didChangeListener()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -143,52 +140,11 @@ class StartViewController: UIViewController {
     }
     
     @objc private func loginButtonTaped() {
-        guard
-            let email = loginTextField.text,
-                let password = passwordTextField.text,
-                email != "",
-                password != ""
-        else {
-            showWarningLabel(withText: "Info is incorrect")
-            return
-        }
-        
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
-            if error != nil {
-                self?.showWarningLabel(withText: "Error occured")
-                return
-            }
-            
-            if user != nil {
-                let viewController = NavigationController(rootViewController: TasksTableViewController())
-                viewController.modalPresentationStyle = .fullScreen
-                self?.present(viewController, animated: true)
-            }
-            
-            self?.showWarningLabel(withText: "No sush user")
-        }
+        presenter.loginButtonTapped(login: loginTextField.text, password: passwordTextField.text)
     }
     
     @objc private func registerButtonTaped() {
-        guard
-            let email = loginTextField.text,
-            let password = passwordTextField.text,
-            email != "",
-            password != ""
-        else {
-            showWarningLabel(withText: "Info is incorrect")
-            return
-        }
-        
-        Auth.auth().createUser(withEmail: email, password: password) { user, error in
-            guard error == nil, user != nil else {
-                print(error?.localizedDescription ?? "")
-                return
-            }
-            let userF = UserFire(user: user!.user)
-            let userRef = self.reference.child("users").child(userF.uid)
-            userRef.setValue(["email": userF.email])
-        }
+        presenter.registerButtonTaped(login: loginTextField.text, password: passwordTextField.text)
     }
     
     @objc private func keyBoardDidShow(notification: Notification) {
@@ -239,8 +195,10 @@ class StartViewController: UIViewController {
             object: nil
         )
     }
-    
-    private func showWarningLabel(withText text: String) {
+}
+
+extension StartViewController: StartViewControllerProtocol {
+    func showWarningLabel(_ text: String) {
         warningLabel.text = text
         
         UIView.animate(
@@ -251,6 +209,12 @@ class StartViewController: UIViewController {
             } completion: { [unowned self] _ in
                 self.warningLabel.alpha = 0
             }
+    }
+    
+    func showTaskTableViewController() {
+        let viewController = NavigationController(rootViewController: TasksTableViewController())
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: true)
     }
 }
 
